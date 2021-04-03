@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">JustMessenger</string>
+    <string name="have_account"><u>I already have an account</u></string>
+    <string name="back"><u>Back</u></string>
+</resources>
