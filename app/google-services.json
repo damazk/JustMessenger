@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1047439375508",
+    "project_id": "just-messenger-b229d",
+    "storage_bucket": "just-messenger-b229d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1047439375508:android:9aa1b0d3c239c49ee50881",
+        "android_client_info": {
+          "package_name": "com.example.justmessenger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1047439375508-pf09oa2ie1p9cda8sc1u9fub3u3h5asd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDcbGSIuj4pkAJyUlzZDmHj35Lc3jJay0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1047439375508-pf09oa2ie1p9cda8sc1u9fub3u3h5asd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
