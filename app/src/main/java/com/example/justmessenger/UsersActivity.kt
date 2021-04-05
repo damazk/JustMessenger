@@ -23,7 +23,7 @@ class UsersActivity : AppCompatActivity() {
         binding.settingsImgbtn.setOnClickListener {
             auth.signOut()
             Toast.makeText(this, "You have signed out.", Toast.LENGTH_SHORT).show()
-            onDestroy()
+            finishAffinity()
         }
     }
 }
