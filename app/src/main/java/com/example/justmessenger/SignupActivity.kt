@@ -7,6 +7,8 @@ import android.util.Log
 import android.widget.Toast
 import com.example.justmessenger.databinding.ActivitySignupBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class SignupActivity : AppCompatActivity() {
 
@@ -32,9 +34,13 @@ class SignupActivity : AppCompatActivity() {
     }
 
     private fun createUser() {
+        // FirebaseDatabase instance
+        val database = Firebase.database
         val username = binding.usernameEt.text.toString()
         val email = binding.emailEt.text.toString()
         val password = binding.passwordEt.text.toString()
+        // Creating user object
+        val user = User(username, email, password)
         if (username.isEmpty() && email.isEmpty() && password.isEmpty()) {
             Toast.makeText(this, "Please fill all the fields and try again.", Toast.LENGTH_SHORT).show()
         } else if (password.length < 8) {
@@ -46,6 +52,10 @@ class SignupActivity : AppCompatActivity() {
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(this, "You're successfully registrated!", Toast.LENGTH_SHORT).show()
+                            // Adding user to FirebaseDatabase
+                            val ref = database.getReference("${auth.currentUser.uid}")
+                            ref.setValue(user)
+                            // Opening UsersActivity
                             val usersActivityIntent = Intent(this, UsersActivity::class.java)
                             startActivity(usersActivityIntent)
                         } else {
