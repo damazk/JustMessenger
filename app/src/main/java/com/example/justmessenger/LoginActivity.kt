@@ -33,15 +33,26 @@ class LoginActivity : AppCompatActivity() {
     private fun signinUser() {
         val email = binding.emailEt.text.toString()
         val password = binding.passwordEt.text.toString()
-        auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(this, "You're successfully logged in!", Toast.LENGTH_SHORT).show()
-                        val usersActivityIntent = Intent(this, UsersActivity::class.java)
-                        startActivity(usersActivityIntent)
-                    } else {
-                        Toast.makeText(this, "Logging failed. Please try one more time.", Toast.LENGTH_SHORT).show()
+        if (email.isEmpty() && password.isEmpty()) {
+            Toast.makeText(this, "Please fill all the fields and try again.", Toast.LENGTH_SHORT).show()
+        } else if (password.length < 8) {
+            Toast.makeText(this, "Your password must include at least 8 characters.", Toast.LENGTH_SHORT).show()
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(this, "Your e-mail address does not seem valid. Please change it and try again.", Toast.LENGTH_SHORT).show()
+        } else {
+            auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(this, "You're successfully logged in!", Toast.LENGTH_SHORT).show()
+                            val usersActivityIntent = Intent(this, UsersActivity::class.java)
+                            startActivity(usersActivityIntent)
+                        } else {
+                            Toast.makeText(this, "Logging failed. Please try one more time.", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                }
+        }
+
     }
+
+
 }
