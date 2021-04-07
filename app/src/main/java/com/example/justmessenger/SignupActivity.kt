@@ -34,13 +34,13 @@ class SignupActivity : AppCompatActivity() {
     }
 
     private fun createUser() {
-        // FirebaseDatabase instance
-        val database = Firebase.database
+        // User data
         val username = binding.usernameEt.text.toString()
         val email = binding.emailEt.text.toString()
         val password = binding.passwordEt.text.toString()
-        // Creating user object
-        val user = User(username, email, password)
+        // FirebaseDatabase instance
+        val database = Firebase.database
+        // Checking fields
         if (username.isEmpty() && email.isEmpty() && password.isEmpty()) {
             Toast.makeText(this, "Please fill all the fields and try again.", Toast.LENGTH_SHORT).show()
         } else if (password.length < 8) {
@@ -53,7 +53,8 @@ class SignupActivity : AppCompatActivity() {
                         if (task.isSuccessful) {
                             Toast.makeText(this, "You're successfully registrated!", Toast.LENGTH_SHORT).show()
                             // Adding user to FirebaseDatabase
-                            val ref = database.getReference("${auth.currentUser.uid}")
+                            val user = User(username, auth.currentUser.uid, email, password)
+                            val ref = database.getReference("users/${auth.currentUser.uid}")
                             ref.setValue(user)
                             // Opening UsersActivity
                             val usersActivityIntent = Intent(this, UsersActivity::class.java)

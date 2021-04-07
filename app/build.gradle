@@ -47,7 +47,11 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    //Firebase
+    // Parcelize
+    implementation 'androidx.versionedparcelable:versionedparcelable:1.1.1'
+    apply plugin: 'kotlin-android-extensions'
+
+    // Firebase
     apply plugin: 'com.google.gms.google-services'
     implementation platform('com.google.firebase:firebase-bom:26.8.0')
     implementation 'com.google.firebase:firebase-auth'

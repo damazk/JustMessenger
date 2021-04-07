@@ -1,3 +1,16 @@
 package com.example.justmessenger
 
-data class User(val username: String, val email: String, val password: String)
+import android.os.Parcelable
+import androidx.versionedparcelable.ParcelField
+import androidx.versionedparcelable.VersionedParcelize
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+class User (
+    val username: String,
+    val uid: String,
+    val email: String,
+    val password: String ) : Parcelable {
+
+    constructor () : this ("", "", "", "")
+}
