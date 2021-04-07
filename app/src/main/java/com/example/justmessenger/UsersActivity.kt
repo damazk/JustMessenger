@@ -13,6 +13,9 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieAdapter
+import com.xwray.groupie.GroupieViewHolder
 
 class UsersActivity : AppCompatActivity() {
 
@@ -38,13 +41,18 @@ class UsersActivity : AppCompatActivity() {
     }
 
     private fun showUsers() {
+        val adapter = GroupieAdapter()
+        binding.usersRv.setAdapter(adapter)
         val database = Firebase.database
         val ref = database.getReference("/users/")
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 snapshot.children.forEach {
                     val user = it.getValue(User::class.java)
-                    Toast.makeText(applicationContext, "${user?.username} is here", Toast.LENGTH_SHORT).show()
+                    if (user != null) {
+                        adapter.add(UserItem(user))
+                    }
+//                    Toast.makeText(applicationContext, "${user?.username} is here", Toast.LENGTH_SHORT).show()
                     Log.d("Users", "Value is $user")
                 }
             }
