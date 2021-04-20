@@ -10,7 +10,8 @@ class User (
     val username: String,
     val uid: String,
     val email: String,
-    val password: String ) : Parcelable {
+    val password: String,
+    val profileImageUrl: String) : Parcelable {
 
-    constructor () : this ("", "", "", "")
+    constructor () : this ("", "", "", "", "")
 }
