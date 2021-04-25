@@ -58,8 +58,12 @@ dependencies {
     implementation 'com.google.firebase:firebase-database-ktx'
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.firebase:firebase-storage-ktx'
+    implementation 'com.firebaseui:firebase-ui-storage:6.4.0'
 
     // Groupie adapter
     implementation "com.xwray:groupie:2.9.0"
     implementation "com.xwray:groupie-viewbinding:2.9.0"
+
+    // Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

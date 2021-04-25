@@ -52,30 +52,10 @@ class SignupActivity : AppCompatActivity() {
 
     private fun dispatchTakePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        val takePictureIntentTest = Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA)
         try {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
         } catch (e: ActivityNotFoundException) {
             Toast.makeText(this, "Error: you can't take or choose a photo.", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-
-    private fun uploadProfileImage(currentUserUid: String) {
-        val fbStorageRef = fbStorage.reference
-        val userProfileImageRef = fbStorageRef.child("images/$currentUserUid/profile_image.jpg")
-        binding.cameraIbtn.isDrawingCacheEnabled = true
-        binding.cameraIbtn.buildDrawingCache()
-        val bitmap = (binding.cameraIbtn.drawable as BitmapDrawable).bitmap
-        val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        val data = baos.toByteArray()
-
-        var uploadTask = userProfileImageRef.putBytes(data)
-        uploadTask.addOnSuccessListener {
-            Toast.makeText(this, "Your image Successfully uploaded to FirebaseStorage!", Toast.LENGTH_SHORT).show()
-        }.addOnFailureListener {
-            Toast.makeText(this, "Uploading your image failed :[", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -108,14 +88,29 @@ class SignupActivity : AppCompatActivity() {
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(this, "You're successfully registrated!", Toast.LENGTH_SHORT).show()
-                            // Adding user to FirebaseDatabase
-                            val user = User(username, auth.currentUser.uid, email,
-                                password, "images/${auth.currentUser.uid}/profile_image")
+                            // Adding user with profile image to FirebaseDatabase
                             val ref = database.getReference("users/${auth.currentUser.uid}")
-                            ref.setValue(user)
+                            val fbStorageRef = fbStorage.reference
+                            val userProfileImageRef = fbStorageRef.child("images/${auth.currentUser.uid}/profile_image.jpg")
+                            binding.cameraIbtn.isDrawingCacheEnabled = true
+                            binding.cameraIbtn.buildDrawingCache()
+                            val bitmap = (binding.cameraIbtn.drawable as BitmapDrawable).bitmap
+                            val baos = ByteArrayOutputStream()
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                            val data = baos.toByteArray()
+                            var uploadTask = userProfileImageRef.putBytes(data)
+                            uploadTask.addOnSuccessListener {
+                                Toast.makeText(this, "Your image Successfully uploaded to FirebaseStorage!", Toast.LENGTH_SHORT).show()
+                                userProfileImageRef.downloadUrl.addOnSuccessListener {
+                                    val user = User(username, auth.currentUser.uid, email,
+                                            password, it.toString())
+                                    ref.setValue(user)
+                                }
+                            }.addOnFailureListener {
+                                Toast.makeText(this, "Uploading your image failed :[", Toast.LENGTH_SHORT).show()
+                            }
                             // Opening UsersActivity
                             val usersActivityIntent = Intent(this, UsersActivity::class.java)
-                            uploadProfileImage(auth.currentUser.uid)
                             startActivity(usersActivityIntent)
                         } else {
                             Toast.makeText(this, "Registration failed. Please try one more time.", Toast.LENGTH_SHORT).show()
