@@ -1,5 +1,6 @@
 package com.example.justmessenger
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -33,8 +34,10 @@ class UsersActivity : AppCompatActivity() {
 
         binding.settingsImgbtn.setOnClickListener {
             auth.signOut()
+            val signupActivityIntent = Intent(this, SignupActivity::class.java)
+            signupActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            startActivity(signupActivityIntent)
             Toast.makeText(this, "You have signed out.", Toast.LENGTH_SHORT).show()
-            finishAffinity()
         }
 
         showUsers()
@@ -49,11 +52,10 @@ class UsersActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 snapshot.children.forEach {
                     val user = it.getValue(User::class.java)
-                    if (user != null) {
+                    if (user != null && user.uid != auth.currentUser?.uid) {
                         adapter.add(UserItem(user))
+                        //Toast.makeText(applicationContext, "${user?.username} is here", Toast.LENGTH_SHORT).show()
                     }
-//                    Toast.makeText(applicationContext, "${user?.username} is here", Toast.LENGTH_SHORT).show()
-                    Log.d("Users", "Value is $user")
                 }
             }
 

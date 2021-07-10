@@ -87,7 +87,7 @@ class SignupActivity : AppCompatActivity() {
             auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
-                            Toast.makeText(this, "You're successfully registrated!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "You're successfully registred!", Toast.LENGTH_SHORT).show()
                             // Adding user with profile image to FirebaseDatabase
                             val ref = database.getReference("users/${auth.currentUser.uid}")
                             val fbStorageRef = fbStorage.reference
@@ -111,7 +111,10 @@ class SignupActivity : AppCompatActivity() {
                             }
                             // Opening UsersActivity
                             val usersActivityIntent = Intent(this, UsersActivity::class.java)
+                            usersActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                            //finishAffinity()
                             startActivity(usersActivityIntent)
+                            finish()
                         } else {
                             Toast.makeText(this, "Registration failed. Please try one more time.", Toast.LENGTH_SHORT).show()
                         }
@@ -124,9 +127,10 @@ class SignupActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
-        val usersActivity = Intent(this, UsersActivity::class.java)
+        val usersActivityIntent = Intent(this, UsersActivity::class.java)
         if(currentUser != null) {
-            startActivity(usersActivity)
+            usersActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            startActivity(usersActivityIntent)
         }
     }
 

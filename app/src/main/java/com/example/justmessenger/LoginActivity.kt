@@ -45,7 +45,9 @@ class LoginActivity : AppCompatActivity() {
                         if (task.isSuccessful) {
                             Toast.makeText(this, "You're successfully logged in!", Toast.LENGTH_SHORT).show()
                             val usersActivityIntent = Intent(this, UsersActivity::class.java)
+                            usersActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                             startActivity(usersActivityIntent)
+                            finish()
                         } else {
                             Toast.makeText(this, "Logging failed. Please try one more time.", Toast.LENGTH_SHORT).show()
                         }
