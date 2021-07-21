@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.justmessenger">
-
-<!--    <uses-permission android:name="android.permission.CAMERA"/>-->
-
-    <uses-feature android:name="android.hardware.camera" android:required="false"/>
-    <uses-feature android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-feature android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- <uses-permission android:name="android.permission.CAMERA"/> -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -15,15 +15,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.JustMessenger.NoActionBar">
-        <activity android:name=".UsersActivity"></activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SignupActivity">
+        <activity android:name=".chat.ChatActivity"></activity>
+        <activity android:name=".UsersActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".SignupActivity" />
     </application>
 
 </manifest>

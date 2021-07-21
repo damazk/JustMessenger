@@ -1,7 +1,11 @@
 package com.example.justmessenger
 
 import android.content.ClipData
+import android.content.Intent
+import android.util.Log
+import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat.startActivity
 import com.bumptech.glide.Glide
 import com.google.android.gms.dynamite.DynamiteModule.load
 import com.google.firebase.ktx.Firebase
@@ -17,7 +21,6 @@ class UserItem (val user: User) : Item<GroupieViewHolder>() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         Picasso.get().load("${user.profileImageUrl}").into(viewHolder.itemView.profile_iv)
         viewHolder.itemView.username_tv.text = user.username
-
     }
 
     override fun getLayout() = R.layout.user_item

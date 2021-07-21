@@ -70,12 +70,15 @@ class SignupActivity : AppCompatActivity() {
 
 
     private fun createUser() {
+
         // User data
         val username = binding.usernameEt.text.toString()
         val email = binding.emailEt.text.toString()
         val password = binding.passwordEt.text.toString()
+
         // FirebaseDatabase instance
         val database = Firebase.database
+
         // Checking fields
         if (username.isEmpty() && email.isEmpty() && password.isEmpty()) {
             Toast.makeText(this, "Please fill all the fields and try again.", Toast.LENGTH_SHORT).show()
@@ -122,17 +125,5 @@ class SignupActivity : AppCompatActivity() {
         }
 
     }
-
-
-    override fun onStart() {
-        super.onStart()
-        val currentUser = auth.currentUser
-        val usersActivityIntent = Intent(this, UsersActivity::class.java)
-        if(currentUser != null) {
-            usersActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            startActivity(usersActivityIntent)
-        }
-    }
-
 
 }
