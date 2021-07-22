@@ -94,6 +94,8 @@ class ChatActivity : AppCompatActivity() {
 
         ref.setValue(message).addOnSuccessListener {
             Log.d("Chat", "Message id: ${ref.key}")
+            binding.messageEt.text.clear()
+            binding.chatRv.scrollToPosition(adapter.itemCount - 1)
         }
     }
 
