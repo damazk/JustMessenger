@@ -7,7 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import com.example.justmessenger.SignupActivity
 import com.example.justmessenger.User
-import com.example.justmessenger.UsersActivity
+import com.example.justmessenger.NewMessageActivity
 import com.example.justmessenger.databinding.ActivityChatBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -25,18 +25,9 @@ class ChatActivity : AppCompatActivity() {
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val user = intent.getParcelableExtra<User>(UsersActivity.USER_KEY)
-        setSupportActionBar(binding.toolbar)
+        val user = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
+        supportActionBar?.title = user?.username
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding.toolbar.title = user?.username
-
-        binding.signoutImgbtn.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            val signupActivityIntent = Intent(this, SignupActivity::class.java)
-            signupActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            startActivity(signupActivityIntent)
-            Toast.makeText(this, "You have signed out.", Toast.LENGTH_SHORT).show()
-        }
 
         showMessages()
 
@@ -48,8 +39,8 @@ class ChatActivity : AppCompatActivity() {
 
 
     private fun showMessages() {
-        val user = intent.getParcelableExtra<User>(UsersActivity.USER_KEY)
-        val currentUser = intent.getParcelableExtra<User>(UsersActivity.CURRENT_USER_KEY)
+        val user = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
+        val currentUser = intent.getParcelableExtra<User>(NewMessageActivity.CURRENT_USER_KEY)
         binding.chatRv.setAdapter(adapter)
         val ref = FirebaseDatabase.getInstance().getReference("messages")
         ref.addChildEventListener(object: ChildEventListener {
@@ -84,8 +75,8 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun sendMessage() {
-        val user = intent.getParcelableExtra<User>(UsersActivity.USER_KEY)
-        val currentUser = intent.getParcelableExtra<User>(UsersActivity.CURRENT_USER_KEY)
+        val user = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
+        val currentUser = intent.getParcelableExtra<User>(NewMessageActivity.CURRENT_USER_KEY)
 
         val ref = FirebaseDatabase.getInstance().getReference("messages").push()
 

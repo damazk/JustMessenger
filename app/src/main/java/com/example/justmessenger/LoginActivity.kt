@@ -44,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(this, "You're successfully logged in!", Toast.LENGTH_SHORT).show()
-                            val usersActivityIntent = Intent(this, UsersActivity::class.java)
+                            val usersActivityIntent = Intent(this, NewMessageActivity::class.java)
                             usersActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                             startActivity(usersActivityIntent)
                             finish()
