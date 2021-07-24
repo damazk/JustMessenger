@@ -46,13 +46,17 @@ class ChatActivity : AppCompatActivity() {
         ref.addChildEventListener(object: ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val message = snapshot.getValue(Message::class.java)
-                Log.d("Chat", "Message text: ${message?.text}")
+//                Log.d("Chat", "Message text: ${message?.text}")
+
+//                if (message != null && user != null) Toast.makeText(applicationContext, "Chat partner is ${user?.username}", Toast.LENGTH_SHORT).show()
 
                 if (message != null && user != null && currentUser != null) {
                     if (message.toId == currentUserUid && message.fromId == user.uid) {
                         adapter.add(ChatToItem(message, currentUser))
+                        Log.d("Chat", "Message text from current user: ${message.text}")
                     } else if (message.fromId == currentUserUid && message.toId == user.uid) {
                         adapter.add(ChatFromItem(message, user))
+                        Log.d("Chat", "Message text from chat partner: ${message.text}")
                     }
                 }
 
@@ -88,6 +92,11 @@ class ChatActivity : AppCompatActivity() {
             binding.messageEt.text.clear()
             binding.chatRv.scrollToPosition(adapter.itemCount - 1)
         }
+
+        val latestMessageToRef = FirebaseDatabase.getInstance().getReference("latestMessages/$currentUserUid/${user.uid}")
+        val latestMessageFromRef = FirebaseDatabase.getInstance().getReference("latestMessages/${user.uid}/$currentUserUid")
+        latestMessageToRef.setValue(message)
+        latestMessageFromRef.setValue(message)
     }
 
     // Provides Back button

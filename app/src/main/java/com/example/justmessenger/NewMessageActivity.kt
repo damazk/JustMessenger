@@ -28,6 +28,8 @@ class NewMessageActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
+        supportActionBar?.title = "Start a new chat"
+
         showUsers()
     }
 
@@ -61,9 +63,7 @@ class NewMessageActivity : AppCompatActivity() {
 
                 adapter.setOnItemClickListener { item, view ->
                     val user = item as UserItem
-
                     chatActivityIntent.putExtra(USER_KEY, user.user)
-
                     startActivity(chatActivityIntent)
                 }
 

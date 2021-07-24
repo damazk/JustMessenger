@@ -113,10 +113,10 @@ class SignupActivity : AppCompatActivity() {
                                 Toast.makeText(this, "Uploading your image failed :[", Toast.LENGTH_SHORT).show()
                             }
                             // Opening UsersActivity
-                            val newMessageIntent = Intent(this, NewMessageActivity::class.java)
-                            newMessageIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                            val latestMessagesIntent = Intent(this, LatestMessagesActivity::class.java)
+                            latestMessagesIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                             //finishAffinity()
-                            startActivity(newMessageIntent)
+                            startActivity(latestMessagesIntent)
                             finish()
                         } else {
                             Toast.makeText(this, "Registration failed. Please try one more time.", Toast.LENGTH_SHORT).show()
