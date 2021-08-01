@@ -69,4 +69,16 @@ dependencies {
 
     // CircleImageView
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    // Material
+    implementation 'androidx.compose.material:material:1.0.0'
+
+    // Fancy Button
+    implementation 'com.github.medyo:fancybuttons:1.9.1'
+
+    // Custom Edittext
+    implementation 'com.libizo:customedittext:1.0.6'
+
+    // Custom TextView
+    implementation 'com.libRG:customtextview:2.2'
 }

@@ -4,6 +4,7 @@
 
     <item android:id="@+id/menuNewMessage_btn"
         android:title="New Message"
+        android:icon="@drawable/ic_chat"
         app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/menuSignout_btn"

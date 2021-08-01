@@ -46,7 +46,6 @@ class SignupActivity : AppCompatActivity() {
         binding.signupBtn.setOnClickListener {
             createUser()
         }
-
     }
 
 
@@ -64,7 +63,8 @@ class SignupActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             val imageBitmap = data?.extras?.get("data") as Bitmap
-            binding.cameraIbtn.setImageBitmap(imageBitmap)
+            binding.signupProfileIv.setImageBitmap(imageBitmap)
+            binding.cameraIbtn.alpha = 0f
         }
     }
 
@@ -97,7 +97,7 @@ class SignupActivity : AppCompatActivity() {
                             val userProfileImageRef = fbStorageRef.child("images/${auth.currentUser.uid}/profile_image.jpg")
                             binding.cameraIbtn.isDrawingCacheEnabled = true
                             binding.cameraIbtn.buildDrawingCache()
-                            val bitmap = (binding.cameraIbtn.drawable as BitmapDrawable).bitmap
+                            val bitmap = (binding.signupProfileIv.drawable as BitmapDrawable).bitmap
                             val baos = ByteArrayOutputStream()
                             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
                             val data = baos.toByteArray()

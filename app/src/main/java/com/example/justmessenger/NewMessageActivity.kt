@@ -3,10 +3,9 @@ package com.example.justmessenger
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import android.util.Log
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.justmessenger.chat.ChatActivity
-import com.example.justmessenger.chat.ChatToItem
 import com.example.justmessenger.databinding.ActivityNewMessageBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -30,6 +29,8 @@ class NewMessageActivity : AppCompatActivity() {
 
         supportActionBar?.title = "Start a new chat"
 
+        binding.newMessagesRv.addItemDecoration(DividerItemDecoration(this,DividerItemDecoration.VERTICAL))
+
         showUsers()
     }
 
@@ -40,11 +41,17 @@ class NewMessageActivity : AppCompatActivity() {
     }
 
     private fun showUsers() {
+        val currentUserUid = auth.currentUser.uid
         val adapter = GroupieAdapter()
-        binding.usersRv.setAdapter(adapter)
+        binding.newMessagesRv.setAdapter(adapter)
         val database = Firebase.database
-        val ref = database.getReference("/users/")
-        ref.addValueEventListener(object : ValueEventListener {
+        val usersRef = database.getReference("users")
+
+        // Trying to check there are users with whom currentUser has dialog or not
+//        val messagesRef = database.getReference("latestMessages/$currentUserUid")
+//        val messagesRefValue = messagesRef.get().addOnSuccessListener {  }
+//        Log.d("NewMessage", "Latest messages ref: ${messagesRefValue}")
+        usersRef.addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 val chatActivityIntent = Intent(applicationContext, ChatActivity::class.java)
@@ -55,6 +62,7 @@ class NewMessageActivity : AppCompatActivity() {
                     if (user != null && user.uid != auth.currentUser?.uid) {
                         adapter.add(UserItem(user))
                     }
+
                     // Sending current user data
                     if (user?.uid == auth.currentUser?.uid) {
                         chatActivityIntent.putExtra(CURRENT_USER_KEY, user)

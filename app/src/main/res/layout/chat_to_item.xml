@@ -16,16 +16,21 @@
         android:layout_marginEnd="8dp"
         app:srcCompat="@drawable/ic_camera" />
 
-    <TextView
+    <com.libRG.CustomTextView
         android:id="@+id/chat_to_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="12dp"
         android:text="Message"
-        android:textColor="@color/black"
-        android:background="@color/white"
-        android:padding="10dp"
+        android:fontFamily="@font/roboto"
         android:maxWidth="250dp"
+        android:padding="12dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:lib_setShape="rectangle"
+        app:lib_setRoundedView="true"
+        app:lib_setRoundedBGColor="#FF6F00"
+        app:lib_setRadius="10dp"
         app:layout_constraintEnd_toStartOf="@+id/chat_to_img"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,7 @@ import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.chat_from_item.view.*
-import kotlinx.android.synthetic.main.user_item.view.*
+import kotlinx.android.synthetic.main.new_message_item.view.*
 
 class ChatFromItem (val message: Message, val user: User): Item<GroupieViewHolder>() {
 

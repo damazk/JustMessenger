@@ -1,20 +1,9 @@
 package com.example.justmessenger
 
-import android.content.ClipData
-import android.content.Intent
-import android.util.Log
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat.startActivity
-import com.bumptech.glide.Glide
-import com.google.android.gms.dynamite.DynamiteModule.load
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
-import kotlinx.android.synthetic.main.user_item.view.*
-import java.lang.System.load
+import kotlinx.android.synthetic.main.new_message_item.view.*
 
 
 class UserItem (val user: User) : Item<GroupieViewHolder>() {
@@ -23,5 +12,5 @@ class UserItem (val user: User) : Item<GroupieViewHolder>() {
         viewHolder.itemView.username_tv.text = user.username
     }
 
-    override fun getLayout() = R.layout.user_item
+    override fun getLayout() = R.layout.new_message_item
 }

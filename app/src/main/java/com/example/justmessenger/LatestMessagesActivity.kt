@@ -23,7 +23,6 @@ class LatestMessagesActivity : AppCompatActivity() {
     lateinit var binding: ActivityLatestMessagesBinding
     lateinit private var auth: FirebaseAuth
     val adapter = GroupieAdapter()
-    val currentUserUid = FirebaseAuth.getInstance().currentUser.uid
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +56,7 @@ class LatestMessagesActivity : AppCompatActivity() {
     val latestMessagesHashMap = HashMap<String, Message>()
 
     private fun showLatestMessages() {
+        val currentUserUid = auth.currentUser.uid
         val ref = FirebaseDatabase.getInstance().getReference("latestMessages/$currentUserUid/")
         ref.addChildEventListener(object: ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
